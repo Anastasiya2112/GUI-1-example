@@ -5,6 +5,8 @@ namespace GUI_2
         public Form1()
         {
             InitializeComponent();
+            this.Stroka.Text = Properties.Settings.Default.persant.ToString();
+            //txtIvanovSum.Text = Properties.Settings.Default.ivanovSum.ToString();
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -14,10 +16,15 @@ namespace GUI_2
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var persant = this.Stroka.Text;
+            string persant = this.Stroka.Text;
             var result_program_logic = Logic.program_logic(persant);
-            // выведем сообщение о сравнимости заработка
             var g = Logic.vichis(persant, result_program_logic);
+
+            Properties.Settings.Default.persant = persant;
+            Properties.Settings.Default.result_program_logic = result_program_logic;
+            Properties.Settings.Default.g = g;
+            Properties.Settings.Default.Save();
+
             MessageBox.Show("Доля в % букв в предложении = " + g);
         }
         public class Logic
